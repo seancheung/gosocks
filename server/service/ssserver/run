@@ -1,0 +1,5 @@
+#!/bin/sh -e
+SS_METHOD=${SS_METHOD:-aes-256-cfb}
+SS_PASSWORD=${SS_PASSWORD:-123456}
+exec 2>&1
+exec chpst -u root ssserver -p 8388 -m $SS_METHOD -k $SS_PASSWORD
