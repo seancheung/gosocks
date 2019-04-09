@@ -38,3 +38,5 @@ docker run --restart=always -d -p 12948:12948 --name gosocks-client -e SS_ADDRES
 Set `SS_ADDRESS` to _serverip:udpport_. Config Shadowsocks client's server address to `127.0.0.1`, port to `12948`, password to `SS_PASSWORD` and Encryption to `SS_METHOD`(default `aes-256-cfb`).
 
 For **ShadowsocksX-NG**, set *plugin* to `kcptun`, *plugin options* to `key=mypassword`.
+
+For **ShadowsocksWindows**, Download latest release of [kcptun](https://github.com/shadowsocks/kcptun/releases), extract `client_windows_amd64.exe` to the same directory of `shadowsocks.exe`, set *plugin* to `client_windows_amd64`, *plugin options* to `key=password`. For x86 architecture, use `client_windows_386.exe` instead.
