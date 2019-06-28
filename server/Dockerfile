@@ -1,8 +1,10 @@
-FROM alpine:3.6
+FROM alpine:3.9
 MAINTAINER Sean Dheung <theoxuanx@gmail.com>
 
 ARG GOPATH=/root/go
 ARG CGO_ENABLED=0
+ARG CN_MIRROR=false
+RUN if [ "$CN_MIRROR" = true ]; then sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories; fi
 
 RUN set -ex && \
     apk add --no-cache runit && \

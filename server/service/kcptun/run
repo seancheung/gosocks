@@ -1,4 +1,4 @@
 #!/bin/sh -e
-SS_PASSWORD=${SS_PASSWORD:-123456}
+KCP_PASSWORD=${SS_PASSWORD:-123456}
 exec 2>&1
-exec chpst -u root kcptun -l ":29900" -t "127.0.0.1:8388" --key $SS_PASSWORD
+exec chpst -u root kcptun -l ":29900" -t "127.0.0.1:8388" --key $KCP_PASSWORD $KCP_OPTIONS

@@ -1,8 +1,10 @@
-FROM alpine:3.6
+FROM alpine:3.9
 MAINTAINER Sean Dheung <theoxuanx@gmail.com>
 
 ARG GOPATH=/root/go
 ARG CGO_ENABLED=0
+ARG CN_MIRROR=false
+RUN if [ "$CN_MIRROR" = true ]; then sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories; fi
 
 RUN set -ex && \
     apk add --no-cache --virtual TMP git go musl-dev && \
@@ -18,4 +20,4 @@ ENV SS_PASSWORD=123456
 EXPOSE 12948
 
 ENTRYPOINT ["/bin/sh"]
-CMD ["-c", "/usr/bin/kcptun -l :12948 -r $SS_ADDRESS --key $SS_PASSWORD"]
+CMD ["-c", "/usr/bin/kcptun -l :12948 -r $SS_ADDRESS --key $SS_PASSWORD $KCP_OPTIONS"]

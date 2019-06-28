@@ -10,6 +10,14 @@ docker run --restart=always -d -p 29900:29900/udp --name gosocks -e SS_PASSWORD=
 
 Kcptun and Shadowsocks share the same password set by env `SS_PASSWORD`. You can set env `SS_METHOD` to override default encryption `aes-256-cfb`.
 
+To append other options, use env `KCP_OPTIONS` for kcptun server and `SS_OPTIONS` for shadowsocks server.
+
+e.g.
+
+```bash
+docker run --restart=always -d -p 29900:29900/udp --name gosocks -e SS_PASSWORD=mypassword -e KCP_OPTIONS='--nocomp --mode=normal' -e SS_OPTIONS='-u' seancheung/gosocks:server
+```
+
 ## Server Status & Logging
 
 ```bash
@@ -27,6 +35,9 @@ docker run --restart=always -d -p 8388:8388 --name gosocks -e SS_PASSWORD=mypass
 
 # logging
 docker logs gosocks
+
+# append options
+docker run --restart=always -d -p 8388:8388 --name gosocks -e SS_PASSWORD=mypassword -e SS_OPTIONS='-u' seancheung/gosocks:minimal
 ```
 
 ## Kcptun Client
@@ -37,6 +48,12 @@ docker run --restart=always -d -p 12948:12948 --name gosocks-client -e SS_ADDRES
 
 Set `SS_ADDRESS` to _serverip:udpport_. Config Shadowsocks client's server address to `127.0.0.1`, port to `12948`, password to `SS_PASSWORD` and Encryption to `SS_METHOD`(default `aes-256-cfb`).
 
-For **ShadowsocksX-NG**, set *plugin* to `kcptun`, *plugin options* to `key=mypassword`.
+Set `KCP_OPTIONS` to pass custom options. e.g. `-e KCP_OPTIONS='--nocomp'`.
 
-For **ShadowsocksWindows**, Download latest release of [kcptun](https://github.com/shadowsocks/kcptun/releases), extract `client_windows_amd64.exe` to the same directory of `shadowsocks.exe`, set *plugin* to `client_windows_amd64`, *plugin options* to `key=password`. For x86 architecture, use `client_windows_386.exe` instead.
+For **ShadowsocksX-NG**, set *plugin* to `kcptun`, *plugin options* to `key=mypassword`. Use `;` to separate each option: `key=password;nocomp`.
+
+For **ShadowsocksWindows**, Download latest release of [kcptun](https://github.com/shadowsocks/kcptun/releases), extract `client_windows_amd64.exe` to the same directory of `shadowsocks.exe`, set *plugin* to `client_windows_amd64`, *plugin options* to `key=password`. Use `;` to separate each option: `key=password;nocomp`. For x86 architecture, use `client_windows_386.exe` instead.
+
+
+To use **ShadowRocket** on iOS, you'll need to add `--nocomp` options to server using  env `KCP_OPTIONS`.
+> Ping Test does not work over KCPTUN.
