@@ -57,3 +57,11 @@ For **ShadowsocksWindows**, Download latest release of [kcptun](https://github.c
 
 To use **ShadowRocket** on iOS, you'll need to add `--nocomp` options to server using  env `KCP_OPTIONS`.
 > Ping Test does not work over KCPTUN.
+
+## Shadowsocks(With UDP relay)
+
+> default encryption method is `AEAD_CHACHA20_POLY1305`
+
+```bash
+docker run -d --name gosocks-ss2 --restart always -p 8488:8488 -p 8488:8488/udp -e SS_PASSWORD=mypassword seancheung/gosocks:ss2
+```
