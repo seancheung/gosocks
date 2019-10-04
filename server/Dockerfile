@@ -1,5 +1,5 @@
 FROM alpine:3.9
-MAINTAINER Sean Dheung <theoxuanx@gmail.com>
+LABEL maintainer="Sean Cheung <theoxuanx@gmail.com>"
 
 ARG GOPATH=/root/go
 ARG CGO_ENABLED=0

@@ -65,3 +65,11 @@ To use **ShadowRocket** on iOS, you'll need to add `--nocomp` options to server 
 ```bash
 docker run -d --name gosocks-ss2 --restart always -p 8488:8488 -p 8488:8488/udp -e SS_PASSWORD=mypassword seancheung/gosocks:ss2
 ```
+
+## V2ray support
+
+```bash
+docker run -d --name gosocks-v2ray --restart always -p 8488:8488 -p 8488:8488/udp -e SS_PASSWORD=mypassword seancheung/gosocks:v2ray
+```
+
+Set `SS_PLUGIN_OPTS` to pass v2ray plugin options.
