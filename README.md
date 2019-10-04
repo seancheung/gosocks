@@ -73,3 +73,7 @@ docker run -d --name gosocks-v2ray --restart always -p 8488:8488 -p 8488:8488/ud
 ```
 
 Set `SS_PLUGIN_OPTS` to pass v2ray plugin options.
+
+```bash
+docker run -d --name gosocks-v2ray --restart always -p 8488:8488 -e SS_PLUGIN_OPTS='server;path=/v2ray;host=mydomian.com' -e SS_PASSWORD=mypassword seancheung/gosocks:v2ray
+```

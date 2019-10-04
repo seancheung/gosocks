@@ -22,4 +22,4 @@ ENV SS_PLUGIN_OPTS=server
 EXPOSE 8488 8488/udp
 
 ENTRYPOINT ["/bin/sh"]
-CMD ["-c", "/usr/bin/shadowsocks2 -s \"ss://$SS_METHOD:$SS_PASSWORD@:8488\" -plugin v2ray -plugin-opts \"$SS_PLUGIN_OPTS\" $SS_OPTIONS"]
+CMD ["-c", "/usr/bin/shadowsocks2 -s \"ss://$SS_METHOD:$SS_PASSWORD@:8488\" -verbose -plugin v2ray -plugin-opts \"$SS_PLUGIN_OPTS\""]
