@@ -113,5 +113,5 @@ docker run -d --name gosocks-v2ray --restart always -p 8488:8488 -e SS_PLUGIN_OP
 ```
 
 ```bash
-docker run -d --name godocks-v2ray-core --restart always -p 8488:8488 -p 8488:8488/udp -v /etc/v2ray.json:/etc/v2ray.json seancheung/gosocks:v2ray-core -c /etc/v2ray.json
+docker run -d --name gosocks-v2ray-core --restart always -p 8488:8488 -p 8488:8488/udp -v /etc/v2ray.json:/etc/v2ray.json seancheung/gosocks:v2ray-core -c /etc/v2ray.json
 ```
