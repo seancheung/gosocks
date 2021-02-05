@@ -4,6 +4,10 @@ Docker hosted alpine based shadowsocks with kcptun.
 
 ## Start Server(Shadowsocks over Kcptun)
 
+> [shadowsocks-go](https://github.com/shadowsocks/shadowsocks-go)
+
+> [kcptun](https://github.com/xtaci/kcptun)
+
 ```bash
 docker run --restart=always -d -p 29900:29900/udp --name gosocks -e SS_PASSWORD=mypassword seancheung/gosocks:server
 ```
@@ -30,6 +34,8 @@ docker exec gosocks tail /var/log/kcptun/current
 
 ## Minimal Server(Shadowsocks only)
 
+> [shadowsocks-go](https://github.com/shadowsocks/shadowsocks-go)
+
 ```bash
 docker run --restart=always -d -p 8388:8388 --name gosocks -e SS_PASSWORD=mypassword seancheung/gosocks:minimal
 
@@ -41,6 +47,8 @@ docker run --restart=always -d -p 8388:8388 --name gosocks -e SS_PASSWORD=mypass
 ```
 
 ## Kcptun Client
+
+> [kcptun](https://github.com/xtaci/kcptun)
 
 ```bash
 docker run --restart=always -d -p 12948:12948 --name gosocks-client -e SS_ADDRESS=1.2.3.4:29900 -e SS_PASSWORD=mypassword seancheung/gosocks:client
@@ -60,13 +68,17 @@ To use **ShadowRocket** on iOS, you'll need to add `--nocomp` options to server 
 
 ## Shadowsocks(With UDP relay)
 
+> [go-shadowsocks2](https://github.com/shadowsocks/go-shadowsocks2)
+
 > default encryption method is `AEAD_CHACHA20_POLY1305`
 
 ```bash
 docker run -d --name gosocks-ss2 --restart always -p 8488:8488 -p 8488:8488/udp -e SS_PASSWORD=mypassword seancheung/gosocks:ss2
 ```
 
-## V2ray support
+## Shadowsocks with v2ray support
+
+> [v2ray-plugin](https://github.com/shadowsocks/v2ray-plugin)
 
 ```bash
 docker run -d --name gosocks-v2ray --restart always -p 8488:8488 -p 8488:8488/udp -e SS_PASSWORD=mypassword seancheung/gosocks:v2ray
@@ -76,4 +88,30 @@ Set `SS_PLUGIN_OPTS` to pass v2ray plugin options.
 
 ```bash
 docker run -d --name gosocks-v2ray --restart always -p 8488:8488 -e SS_PLUGIN_OPTS='server;path=/v2ray;host=mydomian.com' -e SS_PASSWORD=mypassword seancheung/gosocks:v2ray
+```
+
+## V2ray(v2ray-core)
+
+> [v2ray-core](https://github.com/v2fly/v2ray-core)
+
+*/etc/v2ray.json*
+
+```json
+{
+  "inbounds": [{
+    "port": 8488,
+    "protocol": "vmess",
+    "settings": {
+      "clients": [{ "id": "<client-uuid>" }]
+    }
+  }],
+  "outbounds": [{
+    "protocol": "freedom",
+    "settings": {}
+  }]
+}
+```
+
+```bash
+docker run -d --name godocks-v2ray-core --restart always -p 8488:8488 -p 8488:8488/udp -v /etc/v2ray.json:/etc/v2ray.json seancheung/gosocks:v2ray-core -c /etc/v2ray.json
 ```
