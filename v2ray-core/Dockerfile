@@ -17,6 +17,7 @@ RUN set -ex && \
     # cp /tmp/v2ctl /usr/bin/v2ctl && \
     apk del TMP && \
     rm -rf $GOPATH && \
+    rm -rf /tmp/* && \
     rm -rf /var/cache/apk/*
 
 ENTRYPOINT ["/usr/bin/v2ray"]
